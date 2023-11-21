@@ -1,0 +1,103 @@
+//
+//  main.cpp
+//  Polynomial Calculator
+//
+//  Created by Riccardo Belletta on 11/21/23.
+//
+
+#include <iostream>
+#include "Polynomial.h"
+#include "Generic.h"
+
+using namespace std;
+
+int main(int argc, const char * argv[]) {
+    
+    welcome();
+    
+    cout << "1st\n";
+    Polynomial f = getPolynomial('x');
+    
+    cout << "2nd\n";
+    Polynomial g = getPolynomial('x');
+    
+    int selection;
+    do
+    {
+        selection = menu();
+        
+        if (selection != 0)
+        {
+            if (selection == 1)
+            {
+                cout << endl;
+                f.display();
+                cout << endl;
+                g.display();
+                cout << "\n\n";
+            }
+            
+            else if (selection == 2)
+            {
+                cout << "\nWhich polynomial are you trying to evaluate?\n\n1. first entry\n2. second entry\n\nSelect: ";
+                int whichOne;
+                cin >> whichOne;
+                
+                if (whichOne == 1)
+                {
+                    cout << "Enter the input value: ";
+                    double x;
+                    cin >> x;
+                    double result = f.evaluate(x);
+                    cout << endl << f.getName() << "(" << x << ") = " << result << "\n\n";
+                }
+                if (whichOne == 2)
+                {
+                    cout << "Enter the input value: ";
+                    double x;
+                    cin >> x;
+                    double result = g.evaluate(x);
+                    cout << endl << g.getName() << "(" << x << ") = " << result << "\n\n";
+                }
+            }
+            
+            else if (selection == 3)
+            {
+                Polynomial sum = f + g;
+                cout << endl << f << " + (" << g << ") = ";
+                cout << sum << "\n\n";
+            }
+            
+            else if (selection == 4)
+            {
+                Polynomial diff1 = f - g;
+                Polynomial diff2 = g - f;
+                
+                cout << endl;
+                cout << f << " - (" << g << ") = ";
+                cout << diff1 << endl;
+                
+                cout << g << " - (" << f << ") = ";
+                cout << diff2 << "\n\n";
+                
+            }
+            
+            else if (selection == 5)
+            {
+                Polynomial prod = f * g;
+                cout << endl << "(" << f << ")*(" << g << ") = " << prod << "\n\n";
+            }
+            
+            else if (selection == 6)
+            {
+                Polynomial fPrime = f.derivative();
+                cout << endl << f.getName() << "'(x) = " << fPrime;
+                
+                Polynomial gPrime = g.derivative();
+                cout << endl << g.getName() << "'(x) = " << gPrime << "\n\n";
+            }
+        }
+    } while (selection > 0 && selection <= 6);
+    
+    return 0;
+}
